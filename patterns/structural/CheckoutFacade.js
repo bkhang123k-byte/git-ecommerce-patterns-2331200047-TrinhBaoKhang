@@ -17,6 +17,23 @@ class CheckoutFacade {
         // 2. If they are, process the payment using `paymentService.processPayment()`.
         // 3. If payment is successful, arrange shipping using `shippingService.arrangeShipping()`.
         // 4. Log the result of each step. If a step fails, log it and stop.
+
+        const inStock = this.inventoryService.checkStock(orderDetails.productIds);
+        if(inStock){
+            const payment = this.paymentService.processPayment(orderDetails.userID, 35);
+            if(payment){
+                const shipping = this.shippingService.arrangeShipping(orderDetails.userID, orderDetails.shippingInfo);
+                if(!shipping){
+                    console.log( "Fail delivering!!!");
+                }
+            }
+            else{
+                console.log ("Fail to pay for your goods!!!!");
+            }
+        }else{
+            console.log("There're not enough supplies for your order!!")
+        }
+        
     }
 }
 

@@ -6,6 +6,12 @@ class Product {
     describe() {
         console.log(`${this.name} - $${this.price}`);
     }
+    getDescription(){
+        return this.name;
+    }
+    getPrice(){
+        return this.price;
+    }
 }
 
 class Book extends Product {
@@ -36,6 +42,15 @@ class ProductFactory {
         // Use a switch statement or if/else chain to check the `type`.
         // Based on the `type`, return a new instance of `Book`, `Electronic`, or a default `Product`.
         // Pass the `details` object to the constructor of the chosen class.
+
+        switch(type, details){
+            case 'book':
+                return new Book(details);
+            case 'electronic':
+                return new Electronic(details);
+            default: 
+                return new Product(details);
+        }
     }
 }
 
